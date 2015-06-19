@@ -330,11 +330,11 @@
         CGRect frame = internalTextView.bounds;
         CGSize fudgeFactor;
         // The padding added around the text on iOS6 and iOS7 is different.
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
-        fudgeFactor = CGSizeMake(10.0, 17.0);
-#else
-        fudgeFactor = CGSizeMake(10.0, 16.0);
-#endif
+        if ([internalTextView.font.familyName rangeOfString:@"Helvetica"].location != NSNotFound) {
+            fudgeFactor = CGSizeMake(10.0, 16.0);
+        } else {
+            fudgeFactor = CGSizeMake(10.0, 17.0);
+        }
         
         frame.size.height -= fudgeFactor.height;
         frame.size.width -= fudgeFactor.width;
